@@ -16,6 +16,7 @@ app.use('/api/url', urlRoutes);
 
 app.get("/", (req, res) => {
   console.log("backend for final eval");
+  res.send("Link Managment");
 });
 
 const PORT = process.env.PORT || 4000;
