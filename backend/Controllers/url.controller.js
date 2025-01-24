@@ -51,11 +51,12 @@ exports.shortenUrl = async (req, res) => {
 exports.redirectUrl =  async (req, res) => {
   
     const shortUrlCode = req.params.shortUrl;
+    console.log(shortUrlCode)
    
     try {
         // Look up the original URL using the short URL code
         const urlData = await Url.findOne({ urlCode: shortUrlCode });
-
+        console.log(urlData)
 
         if (!urlData) {
             return res.status(404).json('No URL found');
