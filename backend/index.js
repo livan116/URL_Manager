@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./Routes/user.route")
 const urlRoutes = require('./Routes/url.routes')
+const redirectRoutes = require('./Routes/redirect.routes')
 
 dotenv.config();
 const app = express();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use('/api/user',userRoutes);
 app.use('/api/url', urlRoutes);
+app.use('/',redirectRoutes)
 
 app.get("/", (req, res) => {
   console.log("backend for final eval");
