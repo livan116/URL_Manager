@@ -1,0 +1,17 @@
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+
+  table{
+    background-color: red;
+    width: 100%;
+  }
+
+  th{
+    /* width: 100px; */
+    background-color: aqua;
+  }
+
+ 

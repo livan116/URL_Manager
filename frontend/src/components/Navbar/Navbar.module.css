@@ -1,0 +1,83 @@
+.Navbar{
+    display: flex;
+    padding:1vw;
+    gap: 10vw;
+    font-family:Manrope;
+
+
+}
+
+.right_navbar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ECECF2;
+    padding-bottom: 10px;
+}
+
+.profile_name span{
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.profile_name p{
+    font-size: 0.8rem;
+    color: #878BA9;
+}
+
+.Nav_Acton{
+    display: flex;
+    gap: 20px;
+}
+.create_button{
+    background-color: #1B48DA;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.create_button:hover{
+    background-color: #6481df;
+}
+
+.Nav_search{
+    padding: 13px 14px;
+    margin-right: 5vw;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid #ECECF2;
+    font-weight: 400;
+}
+
+.search{
+    position: relative;
+    color: #878BA9;
+}
+
+.search i{
+    position: absolute;
+    top: 3vh;
+    padding-left: 1vw;
+}
+
+.profile_circle{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #FDE48A;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    color: #923E0E;
+    font-size: 1rem;
+    font-weight: 700;
+}
