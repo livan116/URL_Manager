@@ -1,10 +1,9 @@
 .Navbar{
     display: flex;
-    padding:1vw;
+    padding-top:1vw;
     gap: 10vw;
     font-family:Manrope;
-
-
+    height: 10vh;
 }
 
 .right_navbar{
