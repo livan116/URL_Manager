@@ -70,20 +70,39 @@ exports.getLinkById = async (req, res) => {
   }
 };
 
-// get info from the db
-
 exports.getInfo = async (req, res) => {
-  
   try {
     const userId = req.user.id;
-    // Fetch all URLs created by the authenticated user
-    const urls = await Url.find({ userId: userId });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5; // Ensure this matches the frontend
+    const skip = (page - 1) * limit;
+
+    // Get total count for pagination
+    const totalItems = await Url.countDocuments({ userId: userId });
+    const totalPages = Math.ceil(totalItems / limit);
+
+    // Fetch paginated URLs
+    const urls = await Url.find({ userId: userId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
     if (!urls.length) {
-      return res.status(404).json({ message: "No links found for this user" });
+      return res.status(404).json({ 
+        message: "No links found for this user",
+        data: [],
+        currentPage: page,
+        totalPages: 0,
+        totalItems: 0
+      });
     }
 
-    res.json(urls);
+    res.json({
+      data: urls,
+      currentPage: page,
+      totalPages,
+      totalItems
+    });
   } catch (error) {
     res.status(500).json({ message: "Error retrieving URLs", error });
   }
@@ -147,26 +166,19 @@ exports.updateUrl = async (req, res) => {
     const { id } = req.params;
 
     // Build an object containing only the fields the user wants to update
-    const updateData = {};
-    if (req.body.originalUrl !== undefined) {
-      updateData.originalUrl = req.body.originalUrl;
-    }
-    if (req.body.remarks !== undefined) {
-      updateData.remarks = req.body.remarks;
-    }
-    if (req.body.expirationDate !== undefined) {
-      updateData.expirationDate = req.body.expirationDate;
+    const { originalUrl, remarks, expirationDate } = req.body;
+    
+    // Check expiry and set status
+    const status = expirationDate && new Date(expirationDate) < new Date() ? 'Inactive' : 'Active';
+    
 
-      // If expirationDate.enabled is false, remove expiryDate
-      if (req.body.expirationDate.enabled === false) {
-        updateData.expirationDate.expiryDate = undefined; // Clear expiryDate
-      }
-    }
-
-    const updatedLink = await Url.findByIdAndUpdate(id, updateData, {
-      new: true,
-      runValidators: true,
-    });
+    const updatedLink = await Url.findByIdAndUpdate(id, { 
+      originalUrl, 
+      remarks, 
+      expirationDate,
+      status 
+    },
+    { new: true });
 
     if (!updatedLink) {
       return res.status(404).json({ error: "Link not found" });

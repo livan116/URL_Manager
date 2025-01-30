@@ -4,7 +4,8 @@ const urlSchema = new mongoose.Schema({
   originalUrl: { type: String, required: true },
   shortUrl: { type: String, required: true, unique: true },
   urlCode: { type: String, required: true, unique: true },
-  expirationDate: { type: Date },
+  expirationDate: { type: Date,
+    default: null },
   createdAt: { type: Date, default: Date.now },
   totalClicks: {
     type: Number,
@@ -37,4 +38,13 @@ const urlSchema = new mongoose.Schema({
   ],
 });
 
+// Middleware to update status based on expiry date
+urlSchema.pre('save', function(next) {
+  if (this.expirationDate && new Date(this.expirationDate) < new Date()) {
+    this.status = 'Inactive';
+  } else {
+    this.status = 'Active';
+  }
+  next();
+});
 module.exports = mongoose.model("Url", urlSchema);

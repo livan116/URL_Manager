@@ -113,8 +113,8 @@ table, th, td {
   
   .inactive {
     composes: status;
-    background-color: #fff3e0;
-    color: #ef6c00;
+  
+    color: #B0901E;
   }
   
   .actionButton {
@@ -144,5 +144,199 @@ table, th, td {
   .deleteButton:hover {
     color: #ed3b4d;
   }
+
+
+  /* model */
+
+.createLinkModel {
+  /* margin-top: 5vh; */
+  position: absolute;
+  background-color: #ffffff;
+  width: 35vw;
+  top: 0;
+}
+
+.createLinkhead {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: #3b3c51;
+  color: #ffffff;
+  border-top-left-radius: 12px;
+}
+
+.newSpan {
+  font-family: Manrope;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.crossSpan {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.crossSpan:hover {
+  color: red;
+}
+
+.create_form {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  /* background-color: red; */
+}
+
+.Urlinput {
+  display: flex;
+  flex-direction: column;
+}
+
+.Urlinput label {
+  margin-bottom: 10px;
+  font-family: Manrope;
+  font-weight: 600;
+  color: #3b3c51;
+}
+.Urlinput label span {
+  margin-left: 2px;
+  color: #ff0101;
+}
+
+.Urlinput input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-family: Manrope;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.Urlinput textarea {
+  width: 100%;
+  padding: 10px;
+  height: 15vh;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-family: Manrope;
+  font-size: 0.9rem;
+  color: #3b3c51;
+  outline: none;
+}
+
+.toggle {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle p {
+  font-family: Manrope;
+  font-weight: 600;
+  color: #3b3c51;
+}
+
+.date_time_container {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 6px;
+}
+.date_time_container input {
+  background: transparent;
+  border: none;
+  font-family: Manrope;
+  font-size: 1rem;
+  color: #343446;
+  outline: none;
+}
+
+.createUrl_Btns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12vh;
+  background-color: #3b3c511a;
+}
+
+.createBtn {
+  background-color: #1b48da;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  font-family: Manrope;
+}
+
+.clearBtn {
+  font-size: 1rem;
+  font-family: Manrope;
+  color: #3b3c51;
+}
+
+/* style for toggle button  */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
  

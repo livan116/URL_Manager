@@ -1,6 +1,7 @@
 .Navbar{
     display: flex;
     padding-top:1vw;
+    padding-left: 1vw;
     gap: 10vw;
     font-family:Manrope;
     height: 10vh;
@@ -10,10 +11,14 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    /* background-color: red; */
+    /* gap: 28vw; */
     border-bottom: 1px solid #ECECF2;
     padding-bottom: 10px;
 }
-
+.profile_name{
+    display: flex;
+}
 .profile_name span{
     font-size: 1.2rem;
     font-weight: 700;
@@ -26,7 +31,8 @@
 
 .Nav_Acton{
     display: flex;
-    gap: 20px;
+    position: relative;
+    gap: 28px;
 }
 .create_button{
     background-color: #1B48DA;
@@ -47,24 +53,26 @@
 
 .Nav_search{
     padding: 13px 14px;
-    margin-right: 5vw;
+    margin-right: 7vw;  
     border-radius: 6px;
     text-align: center;
     font-size: 1rem;
     outline: none;
     border: 1px solid #ECECF2;
     font-weight: 400;
+
 }
 
 .search{
-    position: relative;
+    position: relative;;
     color: #878BA9;
 }
 
 .search i{
     position: absolute;
-    top: 3vh;
+    top: 2.2vh;
     padding-left: 1vw;
+    font-size: 1.2rem;
 }
 
 .profile_circle{
@@ -79,4 +87,37 @@
     color: #923E0E;
     font-size: 1rem;
     font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
 }
+
+.profile_circle:hover{
+    transform: scale(1.25);
+}
+
+.logoutDiv{
+    position: absolute;
+    top: 6vh;
+    left: 27vw;
+    width: 3vw;
+}
+
+.logoutBtn{
+    border: 1px solid #ececf2;
+    color: #878ba9;
+    font-family: Manrope;
+    font-size: 1rem;
+    font-weight: 400;
+    background-color: #ffffff;
+    padding: 8px 22px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.logoutBtn:hover{
+    background-color: #3B3C51;
+    color: #FFFFFF;
+}
+
+  
+
+ 
