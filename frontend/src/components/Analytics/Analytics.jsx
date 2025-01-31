@@ -4,52 +4,132 @@ import style from "./Analytics.module.css";
 import Pagination from "../Pagination/Pagination";
 
 const Analytics = () => {
-  const [logs, setLogs] = useState([]); // Store all the logs
-  const [currentPage, setCurrentPage] = useState(1); // Current page for pagination
-  const [totalPages, setTotalPages] = useState(1); // Total number of pages for pagination
-  const itemsPerPage = 10; // Show 10 logs per page
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const [logs, setLogs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const itemsPerPage = 10;
 
-  // Fetch data on page load and whenever currentPage changes
   useEffect(() => {
     fetchAnalyticsData();
   }, [currentPage]);
 
-  // Function to fetch URLs and their access logs
+  const formatDateTime = (date, clickedAt) => {
+    try {
+      // Format the date part
+      const formattedDate = new Date(date).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+
+      // Format the time part if clickedAt exists
+      let formattedTime = "";
+      if (clickedAt) {
+        formattedTime = new Date(clickedAt).toLocaleTimeString("en-US", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: true,
+        });
+      }
+
+      // Combine date and time
+      return `${formattedDate}${formattedTime ? ', ' + formattedTime : ''}`;
+    } catch (error) {
+      console.error("DateTime formatting error:", error);
+      return "Invalid DateTime";
+    }
+  };
+
   const fetchAnalyticsData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/url?page=${currentPage}&limit=${itemsPerPage}`,
+        `${apiUrl}/api/url?page=${currentPage}&limit=${itemsPerPage}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
 
-      // Extract URLs and logs, flatten logs across all URLs
       const urls = response.data.data;
       const allLogs = [];
 
-      // Flatten the logs so we can paginate on the logs themselves
       urls.forEach((urlItem) => {
-        urlItem.accessLogs.forEach((log) => {
-          allLogs.push({
-            originalUrl: urlItem.originalUrl,
-            shortUrl: urlItem.shortUrl,
-            createdAt: urlItem.createdAt,
-            ipAddress: log.ipAddress,
-            deviceType: log.deviceType,
+        if (urlItem.accessLogs && urlItem.accessLogs.length > 0) {
+          // Group access logs by date
+          const logsByDate = urlItem.accessLogs.reduce((acc, log) => {
+            const logDate = new Date(log.clickedAt).toISOString().split('T')[0];
+            if (!acc[logDate]) {
+              acc[logDate] = [];
+            }
+            acc[logDate].push(log);
+            return acc;
+          }, {});
+
+          // Match access logs with clicksPerDay data
+          if (urlItem.clicksPerDay && urlItem.clicksPerDay.length > 0) {
+            urlItem.clicksPerDay.forEach((clickData) => {
+              const dateAccessLogs = logsByDate[clickData.date] || [];
+              
+              if (dateAccessLogs.length > 0) {
+                // Create entries for each access log on this date
+                dateAccessLogs.forEach((log) => {
+                  allLogs.push({
+                    date: clickData.date,
+                    clicks: clickData.count,
+                    originalUrl: urlItem.originalUrl,
+                    shortUrl: urlItem.shortUrl,
+                    ipAddress: log.ipAddress || "N/A",
+                    deviceType: log.deviceType || "N/A",
+                    clickedAt: log.clickedAt,
+                  });
+                });
+              } else {
+                // Create a single entry for dates without access logs
+                allLogs.push({
+                  date: clickData.date,
+                  clicks: clickData.count,
+                  originalUrl: urlItem.originalUrl,
+                  shortUrl: urlItem.shortUrl,
+                  ipAddress: "N/A",
+                  deviceType: "N/A",
+                  clickedAt: null,
+                });
+              }
+            });
+          }
+        } else if (urlItem.clicksPerDay && urlItem.clicksPerDay.length > 0) {
+          // Handle cases where there are clicks but no access logs
+          urlItem.clicksPerDay.forEach((clickData) => {
+            allLogs.push({
+              date: clickData.date,
+              clicks: clickData.count,
+              originalUrl: urlItem.originalUrl,
+              shortUrl: urlItem.shortUrl,
+              ipAddress: "N/A",
+              deviceType: "N/A",
+              clickedAt: null,
+            });
           });
-        });
+        }
       });
 
-      // Set logs and pagination details
+      // Sort logs by date and time in descending order
+      allLogs.sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        if (dateB - dateA === 0 && a.clickedAt && b.clickedAt) {
+          return new Date(b.clickedAt) - new Date(a.clickedAt);
+        }
+        return dateB - dateA;
+      });
+
       setLogs(allLogs);
-      setTotalPages(Math.ceil(allLogs.length / itemsPerPage)); // Set total pages based on flattened logs
+      setTotalPages(Math.ceil(allLogs.length / itemsPerPage));
     } catch (error) {
       console.error("Error fetching analytics data:", error);
     }
   };
 
-  // Calculate the logs to display for the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentLogs = logs.slice(startIndex, startIndex + itemsPerPage);
 
@@ -61,7 +141,8 @@ const Analytics = () => {
           <table className={style.tableContainer}>
             <thead className={style.tableHeader}>
               <tr>
-                <th>Timestamp</th>
+                <th>Date & Time</th>
+  
                 <th>Original Link</th>
                 <th>Short Link</th>
                 <th>IP Address</th>
@@ -69,53 +150,40 @@ const Analytics = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Map over the current logs for the current page */}
               {currentLogs.length > 0 ? (
                 currentLogs.map((log, index) => (
                   <tr key={index} className={style.tableRow}>
                     <td>
-                      {/* Timestamp */}
-                      {new Date(log.createdAt).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: true,
-                      })}
+                      {formatDateTime(log.date, log.clickedAt)}
                     </td>
+                
                     <td>
-                      {/* Original Link */}
                       <div className={style.original}>{log.originalUrl}</div>
                     </td>
                     <td>
-                      {/* Short Link */}
                       <div className={style.short}>{log.shortUrl}</div>
                     </td>
                     <td className={style.remarks}>
-                      {/* IP Address */}
-                      {log.ipAddress || "N/A"}
+                      {log.ipAddress}
                     </td>
                     <td className={style.remarks}>
-                      {/* Device Type */}
-                      {log.deviceType || "N/A"}
+                      {log.deviceType}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">No logs found for this page.</td>
+                  <td colSpan="6">No logs found for this page.</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
 
-        {/* Pagination Component */}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={(page) => setCurrentPage(page)} // Update current page
+          onPageChange={(page) => setCurrentPage(page)}
         />
       </div>
     </>

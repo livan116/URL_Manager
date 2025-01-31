@@ -3,7 +3,7 @@
     padding-top:1vw;
     padding-left: 1vw;
     gap: 10vw;
-    font-family:Manrope;
+    font-family: 'Manrope', sans-serif;
     height: 10vh;
 }
 
@@ -11,8 +11,6 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    /* background-color: red; */
-    /* gap: 28vw; */
     border-bottom: 1px solid #ECECF2;
     padding-bottom: 10px;
 }
@@ -31,7 +29,8 @@
 
 .Nav_Acton{
     display: flex;
-    position: relative;
+    /* position: relative; */
+    justify-content: space-between;
     gap: 28px;
 }
 .create_button{
@@ -97,8 +96,9 @@
 
 .logoutDiv{
     position: absolute;
-    top: 6vh;
-    left: 27vw;
+    top: 8vh;
+    left: 92vw;
+
     width: 3vw;
 }
 
@@ -119,5 +119,59 @@
 }
 
   
+@media screen and (max-width: 576px){
+    .Navbar{
+        flex-direction: column;
+        height: 23vh;
+        gap: 3px;
+    }
+
+    .Logo{
+        text-align: center;
+        /* padding: 8px; */
+    }
+    .Logo img{
+        /* text-align: center; */
+        width: 100px;
+    }
+
+    .right_navbar{
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .Nav_Acton{
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .profile_name{
+        margin-bottom: 10px;
+    }
+
+    .logoutDiv{
+     
+        top: 10vh;
+        left: 75vw;
+       
+    }
+
+    .create_button{
+        background-color: #1B48DA;
+        padding: 5px;
+        width: 22vw;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+        color: #FFFFFF;
+        font-size: 0.8rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    
+}
 
  

@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [stats, setStats] = useState({
     totalClicks: 0,
     dateWiseClicks: [],
@@ -25,7 +26,7 @@ const Dashboard = () => {
   const fetchUrls = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://localhost:5000/api/url', {
+      const response = await axios.get(`${apiUrl}/api/url`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -39,7 +40,7 @@ const Dashboard = () => {
   const fetchDashboardStats = async () => {
     try {
       const token = localStorage.getItem('token');
-      let url = 'http://localhost:5000/api/url/dashboard/stats';
+      let url = `${apiUrl}/api/url/dashboard/stats`;
       if (selectedUrl !== 'all') {
         url += `?urlId=${selectedUrl}`;
       }

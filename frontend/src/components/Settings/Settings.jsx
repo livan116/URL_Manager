@@ -5,6 +5,8 @@ import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const navigate = useNavigate();
     const [showDeleteModel, setShowDeleteModel] = useState(false)
     const [settingForm, setSettingForm] = useState({
@@ -25,7 +27,7 @@ const Settings = () => {
     // fetching the user data from the dackend
     const fetchUser = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/user/getUser',
+            const response = await axios.get(`${apiUrl}/api/user/getUser`,
                 {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 });
@@ -51,7 +53,7 @@ const Settings = () => {
         if (settingForm.mobile) updateUser.mobile = settingForm.mobile
 
         try {
-            const response = await axios.put('http://localhost:5000/api/user/update-user',
+            const response = await axios.put(`${apiUrl}/api/user/update-user`,
                 updateUser,
                 {
                     headers: { Authorization: `${localStorage.getItem("token")}` },
@@ -79,7 +81,7 @@ const Settings = () => {
     // delete the user
     const deleteUser = async () => {
         try {
-            const response = await axios.delete('http://localhost:5000/api/user/delete-user',
+            const response = await axios.delete(`${apiUrl}/api/user/delete-user`,
                 {
                     headers: { Authorization: `${localStorage.getItem("token")}` },
                 },

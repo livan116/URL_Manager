@@ -6,6 +6,7 @@ import style from "../Register/Register.module.css";
 import logo from "../../assets/cuvette-logo.svg";
 
 const Login = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -15,31 +16,26 @@ const Login = () => {
   // handling the form input
   const handleLoginForm = (e) => {
     const { name, value } = e.target;
-    setLoginForm({ ...loginForm, [name]: value });
+    setLoginForm({ ...loginForm, [name]: value });  
   };
 
   // handling the form submission
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     console.log("register");
- 
 
     // sending the Registerform data to the backend
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/user/login",
-        loginForm
-      );
-      
+      const response = await axios.post(`${apiUrl}/api/user/login`, loginForm);
+
       if (response.status === 200) {
         setLoginForm({
           email: "",
           password: "",
-    
         });
         toast.success("User Logged In successfully");
-        localStorage.setItem("token",response.data.token)
-        navigate("/home");
+        localStorage.setItem("token", response.data.token);
+        navigate("/home/dashboard");
       } else {
         toast.error("Login failed");
       }
@@ -67,11 +63,7 @@ const Login = () => {
               <p>Join us Today!</p>
             </div>
 
-            <form
-              onSubmit={handleLoginSubmit}
-              className={style.registerForm}
-            >
-             
+            <form onSubmit={handleLoginSubmit} className={style.registerForm}>
               <input
                 type="email"
                 name="email"
@@ -81,7 +73,6 @@ const Login = () => {
                 onChange={handleLoginForm}
               />{" "}
               <br />
-              
               <input
                 type="password"
                 name="password"
@@ -91,7 +82,6 @@ const Login = () => {
                 onChange={handleLoginForm}
               />{" "}
               <br />
-             
               <button type="submit">Login</button>
             </form>
 

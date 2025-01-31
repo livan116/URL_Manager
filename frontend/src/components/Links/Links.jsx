@@ -11,12 +11,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import Pagination from "../Pagination/Pagination";
 
 const Links = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [links, setLinks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
-  const [isExpirationEnabled, setIsExpirationEnabled] = useState(false);
+  // const [isExpirationEnabled, setIsExpirationEnabled] = useState(false);
   const [showDeleteModel, setShowDeleteModel] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [expirationEnabled, setExpirationEnabled] = useState(false);
@@ -45,7 +46,7 @@ const Links = () => {
   const fetchLinks = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/url?page=${currentPage}&limit=${itemsPerPage}`,
+        `${apiUrl}/api/url?page=${currentPage}&limit=${itemsPerPage}`,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
@@ -59,7 +60,10 @@ const Links = () => {
       setLinks(updatedLinks);
       setTotalPages(response.data.totalPages);
     } catch (error) {
-      toast.error("Error fetching links");
+      if(filteredLinks.length > 0){
+        toast.error("Error fetching links");
+      }
+      
     }
   };
 
@@ -134,7 +138,7 @@ const Links = () => {
         expirationDate: expirationEnabled ? selectedDate : null
       };
 
-      await axios.post('http://localhost:5000/api/url/shorten',
+      await axios.post(`${apiUrl}/api/url/shorten`,
         payload,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -158,7 +162,7 @@ const Links = () => {
       };
 
       const response = await axios.put(
-        `http://localhost:5000/api/url/${currentId}`,
+        `${apiUrl}/api/url/${currentId}`,
         payload,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -210,7 +214,7 @@ const Links = () => {
 
   const deleteUrl = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/url/${deleteId}`, {
+      await axios.delete(`${apiUrl}/api/url/${deleteId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setLinks(prev => prev.filter(url => url._id !== deleteId));
@@ -274,7 +278,8 @@ const Links = () => {
   );
 
   return (
-    <div className={styles.container}>
+    <>
+    {filteredLinks.length > 0 ? (<div className={styles.container}>
       <h1>Links</h1>
       <div className={styles.linksContainer}>
         <table className={styles.tableContainer}>
@@ -324,7 +329,9 @@ const Links = () => {
         />
       </div>
 
-      {showCreateForm && (
+      
+    </div>):(<div>No Results found</div>)}
+    {showCreateForm && (
         <div className={styles.createLinkModel}>
           <div className={styles.Createlinks_container}>
             <div className={styles.createLinkhead}>
@@ -395,7 +402,7 @@ const Links = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
