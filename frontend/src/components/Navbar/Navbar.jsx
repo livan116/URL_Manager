@@ -10,6 +10,7 @@ const Navbar = () => {
     const { toggleCreateForm } = useAppContext();
     const [showLogout, setShowLogout] = useState(false);
     const [userName, setUserName] = useState("");
+    const [greet,setGreet] = useState("")
     const { searchTerm, setSearchTerm } = useAppContext();
 
     const navigate = useNavigate();
@@ -32,6 +33,15 @@ const Navbar = () => {
         } catch (error) {
             console.log("Failed to fetch user data", error)
         }
+
+        if (d.getHours() >= 0 && d.getHours() < 12) {
+            setGreet("morning");
+          }
+          if (d.getHours() >= 12 && d.getHours() < 16) {
+            setGreet("afternoon");
+          } else {
+            setGreet("evening");
+          }
     };
 
 
@@ -60,7 +70,7 @@ const Navbar = () => {
                 <div className={style.profile_name}>
                 <span>☀️</span>
                 <div>
-                    <span>Good morning, {userName.name}</span>
+                    <span>Good {greet}, {userName.name}</span>
                     <p>{formattedDate}</p>
                 </div>
                 </div>

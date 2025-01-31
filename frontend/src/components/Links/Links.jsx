@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+
+// Frontend: Complete Links.js component
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Links.module.css";
 import axios from "axios";
 import { toast } from 'react-toastify';
@@ -9,22 +11,36 @@ import "react-datepicker/dist/react-datepicker.css";
 import Pagination from "../Pagination/Pagination";
 
 const Links = () => {
-  let [links, setLinks] = useState([]);
+  const [links, setLinks] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const [isExpirationEnabled, setIsExpirationEnabled] = useState(false);
-  const { showCreateForm, setShowCreateForm,searchTerm } = useAppContext();
+  const [showDeleteModel, setShowDeleteModel] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
+  const [expirationEnabled, setExpirationEnabled] = useState(false);
+  const [expirationDate, setExpirationDate] = useState(null);
+  const { showCreateForm, setShowCreateForm, searchTerm } = useAppContext();
   const [createUrl, setCreateUrl] = useState({
     originalUrl: "",
     remarks: "",
     expirationDate: null
   });
-
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const itemsPerPage = 5;
+
+  const isUrlExpired = useCallback((expirationDate) => {
+    if (!expirationDate) return false;
+    return new Date() > new Date(expirationDate);
+  }, []);
+
+  const getStatus = useCallback((url) => {
+    if (url.status === 'Inactive') return 'Inactive';
+    if (isUrlExpired(url.expirationDate)) return 'Inactive';
+    return 'Active';
+  }, [isUrlExpired]);
 
   const fetchLinks = async () => {
     try {
@@ -34,7 +50,13 @@ const Links = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      setLinks(response.data.data);
+      
+      const updatedLinks = response.data.data.map(link => ({
+        ...link,
+        status: getStatus(link)
+      }));
+      
+      setLinks(updatedLinks);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Error fetching links");
@@ -43,25 +65,53 @@ const Links = () => {
 
   useEffect(() => {
     fetchLinks();
+    // Set up periodic refresh
+    const interval = setInterval(fetchLinks, 60000); // Refresh every minute
+    return () => clearInterval(interval);
   }, [currentPage]);
+
+  const handleToggleChange = (e) => {
+    const isChecked = e.target.checked;
+    setExpirationEnabled(isChecked);
+    
+    if (!isChecked) {
+      setExpirationDate(null);
+      setCreateUrl(prev => ({
+        ...prev,
+        expirationDate: null
+      }));
+    } else {
+      const defaultDate = new Date();
+      defaultDate.setHours(defaultDate.getHours() + 24); // Set default to 24 hours from now
+      setExpirationDate(defaultDate);
+      setSelectedDate(defaultDate);
+      setCreateUrl(prev => ({
+        ...prev,
+        expirationDate: defaultDate
+      }));
+    }
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    setShowDatePicker(false);
+    if (expirationEnabled) {
+      setExpirationDate(date);
+      setCreateUrl(prev => ({
+        ...prev,
+        expirationDate: date
+      }));
+    }
+  };
 
   const handleCreateUrl = (e) => {
     const { name, value } = e.target;
     setCreateUrl(prev => ({ ...prev, [name]: value }));
   };
 
-  // search functionality
-  links = links.filter((item) =>
+  const filteredLinks = links.filter((item) =>
     item.remarks?.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const handleExpirationToggle = (e) => {
-    setIsExpirationEnabled(e.target.checked);
-    if (!e.target.checked) {
-      setCreateUrl(prev => ({ ...prev, expirationDate: null }));
-      setSelectedDate(new Date());
-    }
-  };
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -75,19 +125,13 @@ const Links = () => {
     });
   };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setCreateUrl(prev => ({ ...prev, expirationDate: date }));
-    setShowDatePicker(false);
-  };
-
   const handleCreateUrlSubmit = async (e) => {
     e.preventDefault();
     try {
       const payload = {
         originalUrl: createUrl.originalUrl,
         remarks: createUrl.remarks,
-        expirationDate: isExpirationEnabled ? selectedDate : null
+        expirationDate: expirationEnabled ? selectedDate : null
       };
 
       await axios.post('http://localhost:5000/api/url/shorten',
@@ -110,16 +154,23 @@ const Links = () => {
       const payload = {
         originalUrl: createUrl.originalUrl,
         remarks: createUrl.remarks,
-        expirationDate: isExpirationEnabled ? selectedDate : null
+        expirationDate: expirationEnabled ? selectedDate : null
       };
 
-      await axios.put(`http://localhost:5000/api/url/${currentId}`,
+      const response = await axios.put(
+        `http://localhost:5000/api/url/${currentId}`,
         payload,
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      toast.success("URL updated successfully");
+
+      if (response.data.data.status === 'Active') {
+        toast.success("URL updated and activated successfully");
+      } else {
+        toast.success("URL updated successfully");
+      }
+      
       resetForm();
       fetchLinks();
     } catch (error) {
@@ -135,19 +186,35 @@ const Links = () => {
       remarks: item.remarks,
       expirationDate: item.expirationDate
     });
-    setIsExpirationEnabled(!!item.expirationDate);
-    if (item.expirationDate) {
-      setSelectedDate(new Date(item.expirationDate));
+    
+    const hasExpiration = !!item.expirationDate;
+    setExpirationEnabled(hasExpiration);
+    
+    if (hasExpiration) {
+      const expDate = new Date(item.expirationDate);
+      setSelectedDate(expDate);
+      setExpirationDate(expDate);
+    } else {
+      const defaultDate = new Date();
+      defaultDate.setHours(defaultDate.getHours() + 24);
+      setSelectedDate(defaultDate);
     }
+    
     setShowCreateForm(true);
   };
 
-  const deleteUrl = async (id) => {
+  const deleteID = (item) => {
+    setDeleteId(item._id);
+    setShowDeleteModel(true);
+  };
+
+  const deleteUrl = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/url/${id}`, {
+      await axios.delete(`http://localhost:5000/api/url/${deleteId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      setLinks(prev => prev.filter(url => url._id !== id));
+      setLinks(prev => prev.filter(url => url._id !== deleteId));
+      setShowDeleteModel(false);
       toast.success("URL deleted successfully");
     } catch (error) {
       toast.error("Error deleting URL");
@@ -159,8 +226,12 @@ const Links = () => {
     setIsEditing(false);
     setShowCreateForm(false);
     setCurrentId(null);
-    setIsExpirationEnabled(false);
+    setShowDeleteModel(false);
+    setDeleteId(null);
+    setExpirationEnabled(false);
+    setExpirationDate(null);
     setSelectedDate(new Date());
+    setShowDatePicker(false);
   };
 
   const handleCopy = async (text) => {
@@ -171,6 +242,36 @@ const Links = () => {
       toast.error("Failed to copy link");
     }
   };
+
+  const renderDatePicker = () => (
+    <div className={styles.date_time_container}>
+      <div className={styles.datePickerWrapper}>
+        <input
+          type="text"
+          value={expirationDate ? formatDate(expirationDate) : ''}
+          readOnly
+          className={styles.date_display}
+          onClick={() => setShowDatePicker(true)}
+        />
+        <FiCalendar
+          className={styles.calendar_icon}
+          onClick={() => setShowDatePicker(true)}
+        />
+      </div>
+      {showDatePicker && (
+        <div className={styles.datePickerPopup}>
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            showTimeSelect
+            dateFormat="MMMM d, yyyy h:mm aa"
+            minDate={new Date()}
+            inline
+          />
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className={styles.container}>
@@ -189,7 +290,7 @@ const Links = () => {
             </tr>
           </thead>
           <tbody>
-            {links.map((item) => (
+            {filteredLinks.map((item) => (
               <tr key={item._id} className={styles.tableRow}>
                 <td>{formatDate(item.createdAt)}</td>
                 <td><div className={styles.original}>{item.originalUrl}</div></td>
@@ -208,7 +309,7 @@ const Links = () => {
                   <button className={styles.editButton} onClick={() => updateId(item)}>
                     <i className="fa-solid fa-pen"></i>
                   </button>
-                  <button className={styles.deleteButton} onClick={() => deleteUrl(item._id)}>
+                  <button className={styles.deleteButton} onClick={() => deleteID(item)}>
                     <i className="fa-solid fa-trash-can"></i>
                   </button>
                 </td>
@@ -256,40 +357,16 @@ const Links = () => {
               <div className={styles.toggle}>
                 <p>Link Expiration</p>
                 <label className={styles.switch}>
-                  <input 
-                    type="checkbox" 
-                    checked={isExpirationEnabled}
-                    onChange={handleExpirationToggle}
+                  <input
+                    type="checkbox"
+                    checked={expirationEnabled}
+                    onChange={handleToggleChange}
                   />
                   <span className={`${styles.slider} ${styles.round}`}></span>
                 </label>
               </div>
 
-              {isExpirationEnabled && (
-                <div className={styles.date_time_container}>
-                  <input
-                    type="text"
-                    value={formatDate(selectedDate)}
-                    readOnly
-                    className={styles.date_display}
-                  />
-                  <FiCalendar
-                    className={styles.calendar_icon}
-                    onClick={() => setShowDatePicker(prev => !prev)}
-                  />
-                  {showDatePicker && (
-                    <DatePicker
-                      selected={selectedDate}
-                      onChange={handleDateChange}
-                      showTimeSelect
-                      dateFormat="Pp"
-                      minDate={new Date()}
-                      inline
-                      className={styles.datepicker}
-                    />
-                  )}
-                </div>
-              )}
+              {expirationEnabled && renderDatePicker()}
 
               <div className={styles.createUrl_Btns}>
                 <button type="button" className={styles.clearBtn} onClick={resetForm}>
@@ -300,6 +377,21 @@ const Links = () => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModel && (
+        <div className={styles.overlay}>
+          <div className={styles.delete_model}>
+            <span onClick={resetForm}>x</span>
+            <div className={styles.delete_content}>
+              <p>Are you sure you want to remove it?</p>
+              <div className={styles.deleteModel_Btns}>
+                <button className={styles.noBtn} onClick={resetForm}>NO</button>
+                <button className={styles.yesBtn} onClick={deleteUrl}>YES</button>
+              </div>
+            </div>
           </div>
         </div>
       )}

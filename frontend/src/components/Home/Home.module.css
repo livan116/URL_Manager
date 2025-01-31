@@ -1,12 +1,8 @@
 .sidebar_parent{
     display: flex;
-    height: 90vh;
-
+    font-family: Manrope;
 }
 
-.MainPage{
-    /* height: 100vh; */
-}
 
 .sideBar{
     width: 18vw;
@@ -14,11 +10,140 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-
-
+    gap: 20px;  
 }
 .outlet{
-    /* padding: 20px; */
     width: 82vw;
+}
+
+.link, .analytics, .dashboard{
+    position: relative;
+    padding-left: 3vw;
+    color: #3B3C51;
+    cursor: pointer;
+
+}
+
+.link p, .analytics p, .dashboard p{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.link i, .analytics i, .dashboard i {
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    bottom: 0;   
+    text-align: center;
+}
+
+.setting{
+    position: relative;
+    margin-top: 5vh;
+    padding: 7vh;
+    border-bottom: 2px solid #ECECF2;
+    border-top: 2px solid #ECECF2;
+    color: #3B3C51;
+    cursor: pointer;
+}
+
+.setting i{
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+    text-align: center;
+}
+
+.setting p{
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+
+/* Media Queries */
+
+/* For tablets (portrait) */
+@media screen and (max-width: 768px) {
+    .sideBar {
+        width: 25vw;
+        padding: 15px;
+        gap: 15px;
+    }
+
+    .outlet {
+        width: 75vw;
+    }
+
+    .link p, .analytics p, .dashboard p, .setting p {
+        font-size: 0.9rem;
+    }
+
+    .link i, .analytics i, .dashboard i, .setting i {
+        font-size: 1.1rem;
+    }
+
+    .setting {
+        padding: 5vh;
+        margin-top: 3vh;
+    }
+}
+
+/* For mobile phones */
+@media screen and (max-width: 480px) {
+    .sidebar_parent {
+        flex-direction: column;
+    }
+
+    .sideBar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ECECF2;
+        padding: 10px;
+        gap: 12px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .outlet {
+        width: 100%;
+    }
+
+    .link, .analytics, .dashboard {
+        padding-left: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .link p, .analytics p, .dashboard p {
+        font-size: 0.8rem;
+        margin: 0;
+    }
+
+    .link i, .analytics i, .dashboard i {
+        position: static;
+        font-size: 1rem;
+    }
+
+    .setting {
+        margin-top: 0;
+        padding: 10px;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .setting i {
+        position: static;
+        font-size: 1rem;
+    }
+
+    .setting p {
+        font-size: 0.8rem;
+        margin: 0;
+    }
 }

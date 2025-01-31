@@ -1,0 +1,283 @@
+.setting_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8vh;
+    position: relative;
+  }
+  
+  .setting_form {
+    width: 30vw;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formGroup {
+    margin-bottom: 15px;
+    display: flex;
+    gap: 10px;
+  }
+  .formGroup label {
+    width: 10vw;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: Manrope;
+  }
+  
+  .formGroup input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: Manrope;
+  }
+  
+  .setting_Btns {
+    margin-top: 10vh;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3vh;
+  }
+  
+  .setting_Btns button {
+    width: 100%;
+    padding: 15px 0px;
+    font-size: 0.9rem;
+    font-family: Manrope;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .DelAccount_Btn button {
+    width: 100%;
+    padding: 15px 0px;
+    font-size: 0.9rem;
+    font-family: Manrope;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .Save_Btn {
+    background-color: #1b48da;
+    transition: 0.3s;
+  }
+  .Save_Btn:hover {
+    /* background-color: #000; */
+    transform: scale(1.02);
+  }
+  
+  .delete_Btn {
+    background-color: #eb0d0d;
+    transition: 0.3s;
+  }
+  
+  .delete_Btn:hover {
+    transform: scale(1.02);
+  }
+  
+  /* detele model */
+  
+  .delete_model {
+    position: fixed; /* change from absolute to fixed */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    width: 30vw;
+    height: 30vh;
+    padding: 10px;
+    border-radius: 6px;
+    z-index: 999; /* ensure modal appears above overlay */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .delete_model span {
+    float: right;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  .delete_model span:hover {
+    color: red;
+  }
+  
+  .delete_content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Manrope;
+    gap: 5vh;
+  }
+  
+  .delete_content p {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .deleteModel_Btns {
+    display: flex;
+    gap: 1vw;
+  }
+  
+  .deleteModel_Btns button {
+    /* background-color: blue; */
+    padding: 1.2vh 4.5vw;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .noBtn {
+    background-color: #ececee;
+    color: #000000;
+    transition: 0.3s;
+  }
+  
+  .yesBtn {
+    background-color: #1b48da;
+    color: #ffffff;
+    transition: 0.3s;
+  }
+  
+  .noBtn:hover,
+  .yesBtn:hover {
+    transform: scale(1.05);
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    backdrop-filter: blur(4px);
+    z-index: 998;
+  }
+  
+  
+  /* media for the responsive */
+  
+  @media screen and (max-width: 768px) {
+    .setting_form {
+        width: 80vw;
+        padding: 15px;
+    }
+  
+    .formGroup {
+        flex-direction: column;
+        gap: 5px;
+    }
+  
+    .formGroup label {
+        width: 100%;
+        font-size: 0.9rem;
+    }
+  
+    .formGroup input {
+        width: 95%;
+        padding: 8px;
+    }
+  
+    .setting_Btns {
+        margin-top: 5vh;
+    }
+  
+    .setting_Btns button,
+    .DelAccount_Btn button {
+        padding: 12px 0px;
+        font-size: 0.85rem;
+    }
+  
+    .delete_model {
+        width: 80vw;
+        height: auto;
+        min-height: 25vh;
+        padding: 15px;
+    }
+  
+    .deleteModel_Btns button {
+        padding: 1.2vh 8vw;
+    }
+  }
+  
+  /* For mobile phones */
+  @media screen and (max-width: 480px) {
+    .setting_container {
+        margin-top: 4vh;
+    }
+  
+    .setting_form {
+        width: 90vw;
+        padding: 12px;
+    }
+  
+    .formGroup {
+        margin-bottom: 12px;
+    }
+  
+    .formGroup label {
+        font-size: 0.85rem;
+    }
+  
+    .formGroup input {
+        width: 93%;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+  
+    .setting_Btns {
+        margin-top: 4vh;
+        margin-bottom: 2vh;
+    }
+  
+    .setting_Btns button,
+    .DelAccount_Btn button {
+        padding: 10px 0px;
+        font-size: 0.8rem;
+    }
+  
+    .delete_model {
+        width: 90vw;
+        height: auto;
+        min-height: 20vh;
+        padding: 12px;
+    }
+  
+    .delete_content {
+        gap: 3vh;
+    }
+  
+    .delete_content p {
+        font-size: 0.9rem;
+        text-align: center;
+    }
+  
+    .deleteModel_Btns {
+        gap: 3vw;
+    }
+  
+    .deleteModel_Btns button {
+        padding: 1vh 10vw;
+        font-size: 0.9rem;
+    }
+  
+    .delete_model span {
+        font-size: 1.1rem;
+        padding: 5px;
+    }
+  }

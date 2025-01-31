@@ -38,11 +38,11 @@ const urlSchema = new mongoose.Schema({
   ],
 });
 
-// Middleware to update status based on expiry date
+// Middleware to update status based on expiration date
 urlSchema.pre('save', function(next) {
-  if (this.expirationDate && new Date(this.expirationDate) < new Date()) {
+  if (this.expirationDate && new Date() > new Date(this.expirationDate)) {
     this.status = 'Inactive';
-  } else {
+  } else if (!this.expirationDate) {
     this.status = 'Active';
   }
   next();

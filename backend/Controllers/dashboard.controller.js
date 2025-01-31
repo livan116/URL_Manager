@@ -17,8 +17,13 @@ exports.getDashboardStats = async (req, res) => {
     
     // Initialize dateWiseClicks with all dates
     const dateWiseClicks = {};
+    const dates = [];
+    
+    // Create array of dates and initialize counts
     for (let m = moment(startDate); m.isSameOrBefore(endDate); m.add(1, 'days')) {
-      dateWiseClicks[m.format('YYYY-MM-DD')] = 0;
+      const dateStr = m.format('YYYY-MM-DD');
+      dates.push(dateStr);
+      dateWiseClicks[dateStr] = 0;
     }
 
     // Aggregate clicks by date
@@ -30,11 +35,15 @@ exports.getDashboardStats = async (req, res) => {
       });
     });
 
-    // Convert to array format for frontend
-    const dateWiseClicksArray = Object.entries(dateWiseClicks).map(([date, count]) => ({
-      date: moment(date).format('DD-MM-YY'),
-      clicks: count
-    })).reverse();
+    // Calculate cumulative counts
+    let cumulativeCount = 0;
+    const dateWiseClicksArray = dates.map(date => {
+      cumulativeCount += dateWiseClicks[date];
+      return {
+        date: moment(date).format('DD-MM-YY'),
+        clicks: cumulativeCount
+      };
+    }).reverse(); // Reverse to show most recent dates first
 
     // Calculate device-wise clicks
     const deviceClicks = {};
