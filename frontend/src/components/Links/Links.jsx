@@ -294,6 +294,7 @@ const Links = () => {
               <th>Action</th>
             </tr>
           </thead>
+          
           <tbody>
             {filteredLinks.map((item) => (
               <tr key={item._id} className={styles.tableRow}>
@@ -301,7 +302,7 @@ const Links = () => {
                 <td><div className={styles.original}>{item.originalUrl}</div></td>
                 <td className={styles.shortEdit}>
                   <div className={styles.shortLink}><div className={styles.short}>{item.shortUrl}</div>
-                  <div className={styles.copyIcon} onClick={() => handleCopy(item.shortUrl)}>📋</div></div>
+                  <div className={styles.copyIcon} onClick={() => handleCopy(item.shortUrl)}><i className="fa-regular fa-copy"></i></div></div>
                 </td>
                 <td className={styles.remarks}>{item.remarks}</td>
                 <td ><div className={styles.clicks}>{item.totalClicks}</div></td>
@@ -344,7 +345,23 @@ const Links = () => {
       </div>
 
       
-    </div>):(<div>No Results found</div>)}
+    </div>):(<div><table className={styles.tableContainer}>
+          <thead className={styles.tableHeader}>
+            <tr>
+              <th>Date</th>
+              <th className={styles.originalLink}>Original Link</th>
+              <th className={styles.shortLink}>Short Link</th>
+              <th>Remarks</th>
+              <th>Clicks</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody >
+           
+            <div className={styles.noData}> No data available</div>
+          </tbody></table>
+          </div>)}
     {showCreateForm && (
         <div className={styles.overlays}>
           <div className={styles.createLinkModel}>
@@ -356,10 +373,10 @@ const Links = () => {
               <form onSubmit={isEditing ? handleUpdateCreateUrl : handleCreateUrlSubmit}>
                 <div className={styles.input_style}>
                   <div className={styles.Urlinput}>
-                    <label htmlFor="destinationurl">Destination Url <span>*</span></label>
+                    <label htmlFor="originalUrl">Destination Url <span>*</span></label>
 
-                    <input type="text" name="destinationUrl"
-                      value={createUrl.destinationUrl}
+                    <input type="text" name="originalUrl"
+                      value={createUrl.originalUrl}
                       onChange={handleCreateUrl}
                       placeholder='https://web.whatsapp.com/'
                     />
@@ -387,7 +404,7 @@ const Links = () => {
                     <div className={styles.date_time_container}>
                       <input
                         type="text"
-                        value={expiryDate ? formatDate(expiryDate) : ''}
+                        value={expirationDate ? formatDate(expirationDate) : ''}
                         readOnly
                         className="date_display"
                       />

@@ -88,20 +88,6 @@ const Dashboard = () => {
 
   return (
     <div className={styles.dashboardContainer}>
-      <div className={styles.filterSection}>
-        <select 
-          className={styles.urlSelect}
-          value={selectedUrl}
-          onChange={(e) => setSelectedUrl(e.target.value)}
-        >
-          <option value="all">All URLs</option>
-          {urls.map(url => (
-            <option key={url._id} value={url._id}>
-              {url.shortUrl}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <div className={styles.totalClicksSection}>
         <span className={styles.totalClicksLabel}>Total Clicks</span>

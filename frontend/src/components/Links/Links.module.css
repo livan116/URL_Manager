@@ -5,12 +5,11 @@ td {
   border-collapse: collapse;
 }
 
-.linksContainer{
-  margin-top: 30px;
-}
 
 .tableContainer {
   width: 100%;
+  min-width: 75vw;
+  margin-top: 20px;
   border-collapse: separate;
   border-spacing: 0;
   background-color: white;
@@ -35,6 +34,7 @@ td {
 .original {
   width: 13vw;
   overflow: hidden;
+  text-align: center;
   height: 20px;
 }
 
@@ -55,6 +55,10 @@ td {
 
 .shortEdit {
   display: flex;
+  height: 7.6vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .remarks {
@@ -67,10 +71,6 @@ td {
   text-align: center;
 }
 
-.status {
-  width: 10vw;
-  text-align: center;
-}
 
 .btns {
   width: 10vw;
@@ -96,24 +96,19 @@ td {
 }
 
 .status {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
+  /* display: inline-block; */
+  text-align: center;
 }
 
 .active {
   composes: status;
-
   color: #2e7d32;
   width: 8vw;
 }
 
 .inactive {
   composes: status;
-  background-color: #fff3e0;
-  color: #ef6c00;
+  color: #B0901E;
 }
 
 .actionButton {
@@ -464,6 +459,8 @@ input:checked + .slider:before {
 
 .shortLink{
   display: flex;
+  justify-content: center;
+
 }
 
 /* -------------------------------------------- */
@@ -498,6 +495,10 @@ input:checked + .slider:before {
   border: 1px solid black;
   border-radius: 6px;
   margin: 0 10px;
+}
+
+.noData{
+  text-align: center;
 }
 
 
@@ -539,7 +540,7 @@ input:checked + .slider:before {
   }
 
   .createLinkModel {
-    width: 60vw;
+    min-width: 50vw;
     height: 75vh;
   }
 
@@ -569,11 +570,13 @@ input:checked + .slider:before {
 @media screen and (max-width: 600px) {
   .container {
     padding: 10px;
+   
   }
 
   .tableContainer {
     width: 100%;
     overflow-x: auto;
+   
     min-height: 50vh;
   }
 
