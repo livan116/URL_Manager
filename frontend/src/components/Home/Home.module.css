@@ -1,46 +1,44 @@
-.sidebar_parent{
+/* Base styles */
+.sidebar_parent {
     display: flex;
-    font-family: 'Manrope', sans-serif;
+    font-family: Manrope;
 }
 
-
-.sideBar{
-    width: 20vw;
+.sideBar {
+    width: 18vw;
     border-right: 1px solid #ECECF2;
-    padding: 20px 0px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-
+ 
 }
-.outlet{
+
+.outlet {
     width: 82vw;
 }
 
-
-.link, .analytics, .dashboard{
-    position: relative;
-    padding-left: 3vw;
-    color: #3B3C51;
-    height: 8vh;
+.link, .analytics, .dashboard {
     display: flex;
-    align-items: center;
-    justify-content: start;
     gap: 20px;
+    padding: 3vh 0px;
+    color: #3B3C51;
     cursor: pointer;
-
 }
 
-.link p, .analytics p, .dashboard p{
+.link p, .analytics p, .dashboard p {
     font-size: 1rem;
     font-weight: 600;
 }
 
 .link i, .analytics i, .dashboard i {
-    font-size: 1.2rem; 
+    font-size: 1.2rem;
+    /* position: absolute; */
+    left: 0;
+    bottom: 0;
     text-align: center;
 }
 
-.setting{
+.setting {
     position: relative;
     margin-top: 5vh;
     padding: 7vh;
@@ -50,39 +48,46 @@
     cursor: pointer;
 }
 
-.setting i{
+.setting i {
     font-size: 1.2rem;
     position: absolute;
     left: 0;
-    padding-left: 3vw;
     text-align: center;
 }
 
-.setting p{
+.setting p {
     font-size: 1rem;
-    padding-left: 3vw;
     font-weight: 600;
 }
 
-
-/* Media Queries */
-
-/* For tablets (portrait) */
-@media screen and (max-width: 768px) {
-
-    .sidebar_parent {
-        flex-direction: column;
-    }
-
+/* Large screens (1200px and up) */
+@media screen and (min-width: 1200px) {
     .sideBar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid #ECECF2;
-        padding: 10px;
-        gap: 12px;
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
+        width: 15vw;
+    }
+    
+    .outlet {
+        width: 85vw;
+    }
+}
+
+/* Medium screens (992px to 1199px) */
+@media screen and (max-width: 1199px) {
+    .sideBar {
+        width: 20vw;
+    }
+    
+    .outlet {
+        width: 80vw;
+    }
+}
+
+/* Tablets (768px to 991px) */
+@media screen and (max-width: 991px) {
+    .sideBar {
+        width: 25vw;
+        padding: 15px;
+        gap: 15px;
     }
 
     .outlet {
@@ -98,30 +103,69 @@
     }
 
     .setting {
-        padding: 5vh;
+        padding: 4vh;
         margin-top: 3vh;
     }
 }
 
-/* For mobile phones */
-@media screen and (max-width: 480px) {
+/* Small tablets and large phones (576px to 767px) */
+@media screen and (max-width: 767px) {
+    
     .sidebar_parent {
         flex-direction: column;
+        height: 100vh;
     }
 
     .sideBar {
         width: 100%;
+        height: auto;
         border-right: none;
         border-bottom: 1px solid #ECECF2;
-        padding: 10px;
-        gap: 12px;
+        padding: 10px 5px;
+        gap: 8px;
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
+        margin-top: 8px;
     }
 
     .outlet {
+        width: 100vw;
+    }
+
+    .link p, .analytics p, .dashboard p, .setting p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile phones (575px and below) */
+@media screen and (max-width: 575px) {
+    .sidebar_parent {
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .outlet{
+        width: 100vw;
+    }
+
+    .sideBar {
         width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #ECECF2;
+        padding: 10px 5px;
+        gap: 8px;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 8px;
+    }
+
+    .outlet {
+        width: 100vw;
+        height: calc(100vh - 60px); /* Adjust based on your sidebar height */
+        overflow-y: auto;
     }
 
     .link, .analytics, .dashboard {
@@ -129,36 +173,77 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
     }
 
     .link p, .analytics p, .dashboard p {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin: 0;
     }
 
     .link i, .analytics i, .dashboard i {
         position: static;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .setting {
         margin-top: 0;
-        padding: 10px;
+        padding: 8px;
         border: none;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 4px;
     }
 
     .setting i {
         position: static;
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .setting p {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         margin: 0;
+    }
+}
+
+/* Very small devices */
+@media screen and (max-width: 320px) {
+    .sideBar {
+        padding: 8px 2px;
+        gap: 5px;
+    }
+
+    .link p, .analytics p, .dashboard p, .setting p {
+        font-size: 0.7rem;
+    }
+
+    .link i, .analytics i, .dashboard i, .setting i {
+        font-size: 0.85rem;
+    }
+}
+
+/* Landscape mode for mobile */
+@media screen and (max-height: 480px) and (orientation: landscape) {
+    .sidebar_parent {
+        flex-direction: row;
+    }
+
+    .sideBar {
+        width: 60px;
+        flex-direction: column;
+        padding: 10px 5px;
+    }
+
+    .outlet {
+        width: calc(100% - 60px);
+    }
+
+    .link p, .analytics p, .dashboard p, .setting p {
+        display: none;
+    }
+
+    .link i, .analytics i, .dashboard i, .setting i {
+        font-size: 1rem;
     }
 }

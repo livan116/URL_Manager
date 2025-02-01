@@ -157,7 +157,7 @@ td {
   position: absolute;
   background-color: #ffffff;
   width: 35vw;
-  height:85vh;
+  height:75vh;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
 }
@@ -270,9 +270,9 @@ td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  /* position: relative; */
   /* top: 12vh; */
-  margin-top: 12vh;
+  margin-top: 10px;
   background-color: #3b3c511a;
   border-bottom-left-radius: 12px;
   padding: 10px;
@@ -541,7 +541,7 @@ input:checked + .slider:before {
 
   .createLinkModel {
     min-width: 50vw;
-    height: 75vh;
+    height: 55vh;
   }
 
   .delete_model {
@@ -567,16 +567,19 @@ input:checked + .slider:before {
 }
 
 /* Mobile Styles (Below 600px) */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 426px) {
   .container {
     padding: 10px;
-   
+    margin-left: 30vw;  
+  }
+
+  .emptyHeight{
+    height: 5vh;
   }
 
   .tableContainer {
     width: 100%;
     overflow-x: auto;
-   
     min-height: 50vh;
   }
 
@@ -595,8 +598,8 @@ input:checked + .slider:before {
 
   /* Create Link Modal */
   .createLinkModel {
-    width: 90vw;
-    height: 80vh;
+    width: 100vw;
+    height: 72vh;
     border-radius: 12px;
   }
 

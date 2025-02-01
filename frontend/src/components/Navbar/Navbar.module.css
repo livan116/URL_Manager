@@ -1,108 +1,105 @@
-.Navbar{
+.Navbar {
     display: flex;
-    padding-top:1vw;
+    padding-top: 1vw;
     padding-left: 1vw;
-    gap: 10vw;
-    font-family: 'Manrope', sans-serif;
+    gap: 5vw;
+    font-family: Manrope;
     height: 10vh;
-}
-
-.right_navbar{
+  }
+  
+  .right_navbar {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ECECF2;
+    border-bottom: 1px solid #ececf2;
     padding-bottom: 10px;
-}
-.profile_name{
+  }
+  .profile_name {
     display: flex;
-}
-.profile_name span{
+  }
+  .profile_name span {
     font-size: 1.2rem;
     font-weight: 700;
-}
-
-.profile_name p{
+  }
+  
+  .profile_name p {
     font-size: 0.8rem;
-    color: #878BA9;
-}
-
-.Nav_Acton{
+    color: #878ba9;
+  }
+  
+  .Nav_Acton {
     display: flex;
-    /* position: relative; */
-    justify-content: space-between;
+    position: relative;
     gap: 28px;
-}
-.create_button{
-    background-color: #1B48DA;
+  }
+  .create_button {
+    background-color: #1b48da;
     padding: 10px 14px;
     border-radius: 6px;
     border: none;
     outline: none;
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-}
-
-.create_button:hover{
+  }
+  
+  .create_button:hover {
     background-color: #6481df;
-}
-
-.Nav_search{
+  }
+  
+  .Nav_search {
     padding: 13px 14px;
-    margin-right: 7vw;  
+    margin-right: 7vw;
     border-radius: 6px;
     text-align: center;
     font-size: 1rem;
     outline: none;
-    border: 1px solid #ECECF2;
+    border: 1px solid #ececf2;
     font-weight: 400;
-
-}
-
-.search{
-    position: relative;;
-    color: #878BA9;
-}
-
-.search i{
+  }
+  
+  .search {
+    position: relative;
+    color: #878ba9;
+  }
+  
+  .search i {
     position: absolute;
     top: 2.2vh;
     padding-left: 1vw;
     font-size: 1.2rem;
-}
-
-.profile_circle{
+  }
+  
+  .profile_circle {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #FDE48A;
+    background-color: #fde48a;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 20px;
-    color: #923E0E;
+    color: #923e0e;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: 0.3s;
-}
-
-.profile_circle:hover{
+  }
+  
+  .profile_circle:hover {
     transform: scale(1.25);
-}
-
-.logoutDiv{
+  }
+  
+  .logoutDiv {
     position: absolute;
-    top: 8vh;
-    left: 92vw;
-
+    top: 6vh;
+    left: 27vw;
     width: 3vw;
-}
-
-.logoutBtn{
+  }
+  
+  .logoutBtn {
     border: 1px solid #ececf2;
     color: #878ba9;
     font-family: Manrope;
@@ -112,14 +109,89 @@
     padding: 8px 22px;
     border-radius: 4px;
     cursor: pointer;
-}
-.logoutBtn:hover{
-    background-color: #3B3C51;
-    color: #FFFFFF;
-}
-
+  }
+  .logoutBtn:hover {
+    background-color: #3b3c51;
+    color: #ffffff;
+  }
   
-@media screen and (max-width: 430px){
+  /* media query */
+  
+  @media screen and (max-width: 576px){
+      .Navbar{
+          flex-direction: column;
+          height: 23vh;
+          gap: 3px;
+      }
+  
+      .Logo{
+          text-align: center;
+      }
+      .Logo img{
+          width: 100px;
+      }
+  
+      .right_navbar{
+          width: 100%;
+          align-items: center;
+          flex-direction: column;
+          margin-top: 10px;
+      }
+  
+      .Nav_Acton{
+          gap: 10px;
+          justify-content: space-between;
+      }
+  
+      .profile_name{
+          margin-bottom: 10px;
+      }
+  
+      .logoutDiv{
+       
+          top: 10vh;
+          left: 75vw;
+         
+      }
+      .create_button{
+          background-color: #1B48DA;
+          padding: 5px;
+          width: 22vw;
+          border-radius: 6px;
+          border: none;
+          outline: none;
+          color: #FFFFFF;
+          font-size: 0.8rem;
+          font-weight: 500;
+          cursor: pointer;
+          transition: 0.3s;
+      }
+      .Nav_search {
+        padding: 11px 10px;
+        font-size: 0.8rem;
+      }
+  
+      .search i{
+        position: absolute;
+        font-size: 0.9rem;
+        top: 13px;
+        left: 5px;
+      }
+      .logoutDiv{
+        position: absolute;
+        top: 5vh;
+        left: 55vw;
+        width: 2vw;
+      }
+      .logoutBtn:hover {
+        background-color: #3b3c51;
+        color: #ffffff;
+      }
+  
+      
+  }
+
+  @media screen and (max-width: 767px) {
     .Navbar{
         flex-direction: column;
         height: 23vh;
@@ -128,10 +200,8 @@
 
     .Logo{
         text-align: center;
-        /* padding: 8px; */
     }
     .Logo img{
-        /* text-align: center; */
         width: 100px;
     }
 
@@ -141,75 +211,4 @@
         flex-direction: column;
         margin-top: 10px;
     }
-
-    .Nav_Acton{
-        gap: 10px;
-        justify-content: space-between;
-    }
-
-    .profile_name{
-        margin-bottom: 10px;
-    }
-
-    .logoutDiv{
-     
-        top: 21vh;
-        left: 75vw;
-       
-    }
-
-    .create_button{
-        padding: 5px;
-        width: 22vw;
-        transition: 0.3s;
-    }
-    
-}
-
-@media (min-width:430px) and (max-width: 770px){
-    .Navbar{
-        flex-direction: column;
-        height: 25vh;
-        gap: 3px;
-    }
-
-    .Logo{
-        text-align: center;
-        /* padding: 8px; */
-    }
-    .Logo img{
-        /* text-align: center; */
-        width: 100px;
-    }
-
-    .right_navbar{
-        width: 100%;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 10px;
-    }
-
-    .Nav_Acton{
-        gap: 10px;
-        justify-content: space-between;
-    }
-
-    .profile_name{
-        margin-bottom: 10px;
-    }
-
-
-    .create_button{
-        padding: 3px;
-        width: 22vw;
-        transition: 0.3s;
-    }
-
-    .logoutDiv{
-        top: 22vh;
-        left: 85vw;    
-    }
-}
-
-
- 
+  }
