@@ -136,7 +136,7 @@ const Analytics = () => {
   return (
     <>
       <div className={style.container}>
-        <h1>Analytics</h1>
+
         <div className={style.linksContainer}>
           <table className={style.tableContainer}>
             <thead className={style.tableHeader}>

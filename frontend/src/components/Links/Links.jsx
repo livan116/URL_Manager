@@ -30,7 +30,7 @@ const Links = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const isUrlExpired = useCallback((expirationDate) => {
     if (!expirationDate) return false;
@@ -280,7 +280,7 @@ const Links = () => {
   return (
     <>
     {filteredLinks.length > 0 ? (<div className={styles.container}>
-      <h1>Links</h1>
+
       <div className={styles.linksContainer}>
         <table className={styles.tableContainer}>
           <thead className={styles.tableHeader}>
@@ -297,18 +297,18 @@ const Links = () => {
           <tbody>
             {filteredLinks.map((item) => (
               <tr key={item._id} className={styles.tableRow}>
-                <td>{formatDate(item.createdAt)}</td>
+                <td className={styles.date}>{formatDate(item.createdAt)}</td>
                 <td><div className={styles.original}>{item.originalUrl}</div></td>
                 <td className={styles.shortEdit}>
-                  <div className={styles.short}>{item.shortUrl}</div>
-                  <span className={styles.copyIcon} onClick={() => handleCopy(item.shortUrl)}>📋</span>
+                  <div className={styles.shortLink}><div className={styles.short}>{item.shortUrl}</div>
+                  <div className={styles.copyIcon} onClick={() => handleCopy(item.shortUrl)}>📋</div></div>
                 </td>
                 <td className={styles.remarks}>{item.remarks}</td>
-                <td className={styles.clicks}>{item.totalClicks}</td>
+                <td ><div className={styles.clicks}>{item.totalClicks}</div></td>
                 <td className={styles.status}>
-                  <span className={item.status === 'Active' ? styles.active : styles.inactive}>
+                  <div className={item.status === 'Active' ? styles.active : styles.inactive}>
                     {item.status}
-                  </span>
+                  </div>
                 </td>
                 <td className={styles.btns}>
                   <button className={styles.editButton} onClick={() => updateId(item)}>
@@ -322,73 +322,7 @@ const Links = () => {
             ))}
           </tbody>
         </table>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={(page) => setCurrentPage(page)}
-        />
-      </div>
-
-      
-    </div>):(<div>No Results found</div>)}
-    {showCreateForm && (
-        <div className={styles.createLinkModel}>
-          <div className={styles.Createlinks_container}>
-            <div className={styles.createLinkhead}>
-              <span className={styles.newSpan}>{isEditing ? 'Edit Link' : 'New Link'}</span>
-              <span className={styles.crossSpan} onClick={resetForm}>X</span>
-            </div>
-            <form onSubmit={isEditing ? handleUpdateCreateUrl : handleCreateUrlSubmit} className={styles.create_form}>
-              <div className={styles.Urlinput}>
-                <label htmlFor="originalUrl">Destination URL <span>*</span></label>
-                <input
-                  type="text"
-                  name="originalUrl"
-                  value={createUrl.originalUrl}
-                  onChange={handleCreateUrl}
-                  placeholder='https://web.whatsapp.com/'
-                  required
-                />
-              </div>
-              <div className={styles.Urlinput}>
-                <label htmlFor="remarks">Remarks <span>*</span></label>
-                <textarea
-                  name="remarks"
-                  value={createUrl.remarks}
-                  onChange={handleCreateUrl}
-                  placeholder='Add remarks'
-                  required
-                />
-              </div>
-
-              <div className={styles.toggle}>
-                <p>Link Expiration</p>
-                <label className={styles.switch}>
-                  <input
-                    type="checkbox"
-                    checked={expirationEnabled}
-                    onChange={handleToggleChange}
-                  />
-                  <span className={`${styles.slider} ${styles.round}`}></span>
-                </label>
-              </div>
-
-              {expirationEnabled && renderDatePicker()}
-
-              <div className={styles.createUrl_Btns}>
-                <button type="button" className={styles.clearBtn} onClick={resetForm}>
-                  Clear
-                </button>
-                <button type="submit" className={styles.createBtn}>
-                  {isEditing ? 'Save' : 'Create new'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {showDeleteModel && (
+        {showDeleteModel && (
         <div className={styles.overlay}>
           <div className={styles.delete_model}>
             <span onClick={resetForm}>x</span>
@@ -402,6 +336,102 @@ const Links = () => {
           </div>
         </div>
       )}
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={(page) => setCurrentPage(page)}
+        />
+      </div>
+
+      
+    </div>):(<div>No Results found</div>)}
+    {showCreateForm && (
+        <div className={styles.overlays}>
+          <div className={styles.createLinkModel}>
+            <div className={styles.Createlinks_container}>
+              <div className={styles.createLinkhead}>
+                <span className={styles.newSpan}>{isEditing ? 'Edit Link' : 'New Link'}</span>
+                <span className={styles.crossSpan} onClick={resetForm}>X</span>
+              </div>
+              <form onSubmit={isEditing ? handleUpdateCreateUrl : handleCreateUrlSubmit}>
+                <div className={styles.input_style}>
+                  <div className={styles.Urlinput}>
+                    <label htmlFor="destinationurl">Destination Url <span>*</span></label>
+
+                    <input type="text" name="destinationUrl"
+                      value={createUrl.destinationUrl}
+                      onChange={handleCreateUrl}
+                      placeholder='https://web.whatsapp.com/'
+                    />
+
+                  </div>
+                  <div className={styles.Urlinput}>
+                    <label htmlFor="remarks">Remarks <span>*</span></label> <br />
+                    <textarea name="remarks" id="remarks" value={createUrl.remarks} onChange={handleCreateUrl} placeholder='Add remarks' required>Add remarks</textarea>
+                  </div>
+
+                  <div className={styles.toggle}>
+                    <p>Link Expiration</p>
+                    <label className={styles.switch}>
+                      <input
+                        type="checkbox"
+                        checked={expirationEnabled}
+                        onChange={handleToggleChange}
+                      />
+                      <span className={`${styles.slider} ${styles.round}`}></span>
+                    </label>
+                  </div>
+
+                  {/* Date and Time Picker */}
+                  {expirationEnabled ? (
+                    <div className={styles.date_time_container}>
+                      <input
+                        type="text"
+                        value={expiryDate ? formatDate(expiryDate) : ''}
+                        readOnly
+                        className="date_display"
+                      />
+                      <FiCalendar
+                        className="calendar_icon"
+                        onClick={() => setShowDatePicker((prev) => !prev)}
+                      />
+                      {showDatePicker && (
+                        <DatePicker
+                          selected={selectedDate}
+                          onChange={(date) => {
+                            handleDateChange(date);
+                            setShowDatePicker(false);
+                          }}
+                          showTimeSelect
+                          dateFormat="Pp"
+                          minDate={new Date()}
+                          block
+                          className="datepicker"
+                        />
+                      )}
+                    </div>
+
+                  ) :
+                    (<div className={styles.emptyHeight}></div>)}
+                </div>
+
+                <div className={styles.createUrl_Btns}>
+                  <div>
+                    <p className={styles.clearBtn} onClick={resetForm}>Clear</p>
+                  </div>
+                  <div>
+                    <button className={styles.createBtn} type='submit'> {isEditing ? 'Save' : 'Create new'}</button>
+
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      )}
+
+      
     </>
   );
 };

@@ -1,159 +1,170 @@
+table,
+th,
+td {
+  /* border: 1px solid rgb(203, 203, 203); */
+  border-collapse: collapse;
+}
 
-table, th, td {
-    /* border: 1px solid rgb(203, 203, 203); */
-    border-collapse: collapse;
-  }
+.linksContainer{
+  margin-top: 30px;
+}
 
+.tableContainer {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 70vh;
+}
 
-  .tableContainer {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .tableHeader th {
-    padding: 12px;
-    text-align: center;
-    background-color: #eaf1fc;
-    font-weight: 600;
-    color: #495057;
-    border-bottom: 1px solid #e9ecef;
-  }
+.tableHeader th {
+  padding: 12px;
+  text-align: center;
+  background-color: #eaf1fc;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 1px solid #e9ecef;
+}
 
-  .originalLink{
-    text-align: center;
-  }
+.originalLink {
+  text-align: center;
+}
 
-  .original{
-    width:13vw;
-    overflow: hidden;
-    height: 20px;
-  }
+.original {
+  width: 13vw;
+  overflow: hidden;
+  height: 20px;
+}
 
-
-
- .container{
-
+.container {
   display: flex;
   flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
- }
+  position: relative;
+}
 
-  .short{
-     width:13vw;
-    overflow: hidden;
-    height: 20px;
-  }
+.short {
+  width: 13vw;
+  overflow: hidden;
+  /* height: 20px; */
+}
 
-  .shortEdit{
-    display: flex;
-  }
+.shortEdit {
+  display: flex;
+}
 
-  .remarks{
- 
-    width: 10vw;
-    text-align: center;
-  }
+.remarks {
+  width: 10vw;
+  text-align: center;
+}
 
-  .clicks{
-  
-    width: 8vw;
-    text-align: center;
-  }
+.clicks {
+  width: 8vw;
+  text-align: center;
+}
 
-  .status{
+.status {
+  width: 10vw;
+  text-align: center;
+}
 
-    width: 10vw;
-    text-align: center;
-  }
+.btns {
+  width: 10vw;
+  text-align: center;
+}
 
-  .btns{
+.tableRow td {
+  padding: 5px;
+  overflow: hidden;
+  border-bottom: 1px solid #e9ecef;
+  color: #495057;
+  /* height: 5px; */
+}
 
-    width: 10vw;
-    text-align: center;
-  }
-  
-  .tableRow td {
-    padding: 5px;
-    overflow: hidden;
-    border-bottom: 1px solid #e9ecef;
-    color: #495057;
-    /* height: 5px; */
-  }
-  
-  .tableRow:hover {
-    background-color: #f8f9fa;
-  }
-  
-  .copyIcon {
-    cursor: pointer;
-    color: #6c757d;
-    margin-left: 8px;
-  }
-  
-  .status {
-    display: inline-block;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
-  .active {
-    composes: status;
-   
-    color: #2e7d32;
-    width: 8vw;
-  }
-  
-  .inactive {
-    composes: status;
-  
-    color: #B0901E;
-  }
-  
-  .actionButton {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    margin: 0 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.2s;
-  }
-  
-  .editButton {
-    composes: actionButton;
-    background-color: #ffff;
-  }
-  
-  .editButton:hover {
-    color: #3795e2;
-  }
-  
-  .deleteButton {
-    composes: actionButton;
-    background-color: #ffff;
-  }
-  
-  .deleteButton:hover {
-    color: #ed3b4d;
-  }
+.tableRow:hover {
+  background-color: #f8f9fa;
+}
 
+.copyIcon {
+  cursor: pointer;
+  color: #6c757d;
+  margin-left: 8px;
+}
 
-  /* model */
+.status {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
 
+.active {
+  composes: status;
+
+  color: #2e7d32;
+  width: 8vw;
+}
+
+.inactive {
+  composes: status;
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.actionButton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 0 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.editButton {
+  composes: actionButton;
+  background-color: #ffff;
+}
+
+.editButton:hover {
+  color: #3795e2;
+}
+
+.deleteButton {
+  composes: actionButton;
+  background-color: #ffff;
+}
+
+.deleteButton:hover {
+  color: #ed3b4d;
+}
+
+/* --------------------------------- */
+/* create url model */
+.overlays{
+  display: flex;
+  justify-content: center;  
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 998;
+}
 .createLinkModel {
-  /* margin-top: 5vh; */
   position: absolute;
   background-color: #ffffff;
   width: 35vw;
-  top: 0;
+  height:85vh;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
 }
 
 .createLinkhead {
@@ -180,12 +191,11 @@ table, th, td {
   color: red;
 }
 
-.create_form {
+.input_style{
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 3vh;
-  /* background-color: red; */
+  gap: 3vh; 
 }
 
 .Urlinput {
@@ -240,9 +250,16 @@ table, th, td {
 .date_time_container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border: 1px solid #d1d5db;
   padding: 10px;
   border-radius: 6px;
+  height: 7vh;
+  cursor: pointer;
+}
+
+.emptyHeight{
+  height: 7vh;
 }
 .date_time_container input {
   background: transparent;
@@ -253,14 +270,19 @@ table, th, td {
   outline: none;
 }
 
+
 .createUrl_Btns {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  /* top: 12vh; */
   margin-top: 12vh;
   background-color: #3b3c511a;
-}
+  border-bottom-left-radius: 12px;
+  padding: 10px;
 
+}
 .createBtn {
   background-color: #1b48da;
   color: #ffffff;
@@ -270,14 +292,26 @@ table, th, td {
   outline: none;
   font-size: 1rem;
   font-family: Manrope;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.createBtn:hover{
+  transform: scale(1.05);
 }
 
 .clearBtn {
   font-size: 1rem;
   font-family: Manrope;
   color: #3b3c51;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.clearBtn:hover{
+  color: red;
 }
 
+/* ---------------------------------------------- */
 /* style for toggle button  */
 .switch {
   position: relative;
@@ -334,25 +368,21 @@ input:checked + .slider:before {
 .slider.round {
   border-radius: 34px;
 }
-
 .slider.round:before {
   border-radius: 50%;
 }
-
 .errorInput {
   border-color: #dc2626;
-  /* background-color: #fff5f5; */
 }
 
 .errorMessage {
-  /* display: block; */
   color: #dc2626;
   font-size: 14px;
   margin-top: 4px;
 }
 
+/* ---------------------------------------------- */
 /* delete showmodel */
-
 .overlay {
   position: fixed;
   top: 0;
@@ -360,18 +390,11 @@ input:checked + .slider:before {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
-  /* backdrop-filter: blur(4px); */
   z-index: 998;
 }
 
 .delete_model{
-  /* position: absolute;
-  background-color: #FFFFFF;
-  width: 30vw;
-  height: 30vh;
-  padding: 10px;
-  border-radius: 6px; */
-  position: fixed; /* change from absolute to fixed */
+  position: fixed; 
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -381,9 +404,7 @@ input:checked + .slider:before {
   padding: 10px;
   border-radius: 6px;
   z-index: 999; /* ensure modal appears above overlay */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-  
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
 .delete_model span{
@@ -416,7 +437,6 @@ input:checked + .slider:before {
 }
 
 .deleteModel_Btns button{
-  /* background-color: blue; */
   padding: 1.2vh 4.5vw;
   border: none;
   outline: none;
@@ -441,17 +461,295 @@ input:checked + .slider:before {
 .noBtn:hover, .yesBtn:hover{
   transform: scale(1.05);
 }
- 
-.datePickerWrapper {
-  position: relative;
-  width: 100%;
+
+.shortLink{
+  display: flex;
 }
 
-.datePickerPopup {
-  position: absolute;
-  z-index: 1000;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+/* -------------------------------------------- */
+/* pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  margin-top: 10vh;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.pagination button:hover{
+  transform: scale(1.1);
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pageNum span{
+  padding: 5px 10px;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 0 10px;
+}
+
+
+/* Add these media queries and update the existing ones */
+
+/* Tablet Styles (768px to 1024px) */
+@media screen and (max-width: 1024px) {
+  .tableContainer {
+    min-height: 65vh;
+  }
+
+  .createLinkModel {
+    width: 50vw;
+    height: 80vh;
+  }
+
+  .delete_model {
+    width: 40vw;
+  }
+
+  .original, .short {
+    width: 15vw;
+  }
+
+  .remarks, .status, .btns {
+    width: 12vw;
+  }
+
+  .clicks {
+    width: 10vw;
+  }
+}
+
+/* Small Tablet Styles (601px to 768px) */
+@media screen and (max-width: 768px) {
+  .tableContainer {
+    min-height: 60vh;
+    overflow-x: auto;
+  }
+
+  .createLinkModel {
+    width: 60vw;
+    height: 75vh;
+  }
+
+  .delete_model {
+    width: 50vw;
+  }
+
+  .input_style {
+    gap: 2vh;
+  }
+
+  .date_time_container {
+    height: 6vh;
+  }
+
+  .createUrl_Btns {
+    margin-top: 8vh;
+  }
+
+  .pagination button {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile Styles (Below 600px) */
+@media screen and (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  .tableContainer {
+    width: 100%;
+    overflow-x: auto;
+    min-height: 50vh;
+  }
+
+  /* Table adjustments */
+  .tableHeader th {
+    padding: 8px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .tableRow td {
+    padding: 8px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  /* Create Link Modal */
+  .createLinkModel {
+    width: 90vw;
+    height: 80vh;
+    border-radius: 12px;
+  }
+
+  .createLinkhead {
+    padding: 10px;
+  }
+
+  .input_style {
+    padding: 10px;
+    gap: 2vh;
+  }
+
+  .Urlinput label {
+    font-size: 0.9rem;
+  }
+
+  .Urlinput input,
+  .Urlinput textarea {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .date_time_container {
+    height: 5vh;
+    padding: 8px;
+  }
+
+  .createUrl_Btns {
+    margin-top: 5vh;
+    padding: 8px;
+  }
+
+  .createBtn {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+
+  .clearBtn {
+    font-size: 0.9rem;
+  }
+
+  /* Delete Modal */
+  .delete_model {
+    width: 85vw;
+    height: 25vh;
+  }
+
+  .delete_content {
+    gap: 3vh;
+  }
+
+  .delete_content p {
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
+  .deleteModel_Btns {
+    gap: 4vw;
+  }
+
+  .deleteModel_Btns button {
+    padding: 8px 15px;
+    font-size: 0.85rem;
+  }
+
+  /* Pagination */
+  .pagination {
+    margin-top: 5vh;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pagination button {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    margin: 3px;
+  }
+
+  .pageNum span {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
+
+  /* Switch/Toggle */
+  .switch {
+    width: 50px;
+    height: 28px;
+  }
+
+  .slider:before {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+/* Extra Small Devices (Below 400px) */
+@media screen and (max-width: 400px) {
+  .tableContainer {
+    min-height: 45vh;
+  }
+
+  .createLinkModel {
+    width: 95vw;
+    height: 75vh;
+  }
+
+  .input_style {
+    gap: 1.5vh;
+  }
+
+  .Urlinput textarea {
+    height: 12vh;
+  }
+
+  .createUrl_Btns {
+    flex-direction: column-reverse;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .createBtn,
+  .clearBtn {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .delete_model {
+    width: 90vw;
+    height: 22vh;
+  }
+
+  .deleteModel_Btns button {
+    padding: 8px 12px;
+    width: 45%;
+  }
+}
+
+/* Scrollbar Styling for Mobile */
+@media screen and (max-width: 768px) {
+  .tableContainer::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .tableContainer::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  .tableContainer::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+  }
+
+  .tableContainer::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }

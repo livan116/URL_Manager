@@ -16,7 +16,7 @@ const Login = () => {
   // handling the form input
   const handleLoginForm = (e) => {
     const { name, value } = e.target;
-    setLoginForm({ ...loginForm, [name]: value });  
+    setLoginForm({ ...loginForm, [name]: value });
   };
 
   // handling the form submission
@@ -55,8 +55,15 @@ const Login = () => {
         </div>
         <div className={style.registerRight_container}>
           <div className={style.buttons}>
-            <button className={style.signUpBtn}>SignUp</button>
-            <button className={style.loginBtn}>Login</button>
+            <button className={style.signUpBtn} onClick={() => navigate("/")}>
+              SignUp
+            </button>
+            <button
+              className={style.loginBtn}
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
           </div>
           <div className={style.registerForm_contant}>
             <div className={style.join_us}>
@@ -82,7 +89,9 @@ const Login = () => {
                 onChange={handleLoginForm}
               />{" "}
               <br />
-              <button type="submit">Login</button>
+              <div className={style.registerButton}>
+                <button type="submit">Login</button>
+              </div>
             </form>
 
             <div className={style.already_have_account}>

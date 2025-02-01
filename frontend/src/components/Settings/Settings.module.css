@@ -4,6 +4,7 @@
     align-items: center;
     margin-top: 8vh;
     position: relative;
+    font-family: 'Manrope', sans-serif;
   }
   
   .setting_form {
@@ -23,7 +24,7 @@
     width: 10vw;
     font-weight: 600;
     margin-bottom: 5px;
-    font-family: Manrope;
+
   }
   
   .formGroup input {
@@ -31,7 +32,7 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-family: Manrope;
+   
   }
   
   .setting_Btns {
@@ -45,7 +46,7 @@
     width: 100%;
     padding: 15px 0px;
     font-size: 0.9rem;
-    font-family: Manrope;
+   
     font-weight: 500;
     border: none;
     outline: none;
@@ -58,7 +59,7 @@
     width: 100%;
     padding: 15px 0px;
     font-size: 0.9rem;
-    font-family: Manrope;
+  
     font-weight: 500;
     border: none;
     outline: none;
@@ -116,7 +117,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: Manrope;
+ 
     gap: 5vh;
   }
   

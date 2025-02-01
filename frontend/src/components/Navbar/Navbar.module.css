@@ -119,7 +119,7 @@
 }
 
   
-@media screen and (max-width: 576px){
+@media screen and (max-width: 430px){
     .Navbar{
         flex-direction: column;
         height: 23vh;
@@ -153,25 +153,63 @@
 
     .logoutDiv{
      
-        top: 10vh;
+        top: 21vh;
         left: 75vw;
        
     }
 
     .create_button{
-        background-color: #1B48DA;
         padding: 5px;
         width: 22vw;
-        border-radius: 6px;
-        border: none;
-        outline: none;
-        color: #FFFFFF;
-        font-size: 0.8rem;
-        font-weight: 500;
-        cursor: pointer;
         transition: 0.3s;
     }
     
 }
+
+@media (min-width:430px) and (max-width: 770px){
+    .Navbar{
+        flex-direction: column;
+        height: 25vh;
+        gap: 3px;
+    }
+
+    .Logo{
+        text-align: center;
+        /* padding: 8px; */
+    }
+    .Logo img{
+        /* text-align: center; */
+        width: 100px;
+    }
+
+    .right_navbar{
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .Nav_Acton{
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .profile_name{
+        margin-bottom: 10px;
+    }
+
+
+    .create_button{
+        padding: 3px;
+        width: 22vw;
+        transition: 0.3s;
+    }
+
+    .logoutDiv{
+        top: 22vh;
+        left: 85vw;    
+    }
+}
+
 
  
